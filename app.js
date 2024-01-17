@@ -111,7 +111,7 @@ app.get("/extract", function (req, res) {
     json = extract(html);
   }
 
-  res.json(JSON.stringify(json));
+  res.json(json);
 });
 
 let port = process.env.PORT || 3000;
