@@ -1,23 +1,27 @@
 const express = require("express");
-const basicAuth = require('express-basic-auth');
+const basicAuth = require("express-basic-auth");
 const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 const request = require("request");
 
 let app = express();
-app.use(bodyParser.text({ 
-    type: 'text/html',
-    limit: '50mb'
-}));
+app.use(
+  bodyParser.text({
+    type: "text/html",
+    limit: "50mb",
+  })
+);
 
 const users = {
-    'mauro': 'vsk745jsfpGW46Lm'
+  mauro: "vsk745jsfpGW46Lm",
 };
 
-app.use(basicAuth({
+app.use(
+  basicAuth({
     users: users,
-    challenge: true
-}));
+    challenge: true,
+  })
+);
 
 let json;
 
@@ -82,7 +86,7 @@ function extract(input) {
 }
 
 app.get("/extract", function (req, res) {
-  // allow access from other domains
+
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
@@ -107,7 +111,7 @@ app.get("/extract", function (req, res) {
     json = extract(html);
   }
 
-  res.send(JSON.stringify(json));
+  res.json(JSON.stringify(json));
 });
 
 let port = process.env.PORT || 3000;
